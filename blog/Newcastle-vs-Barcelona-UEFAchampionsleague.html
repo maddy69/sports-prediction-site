@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Preview: Newcastle vs. Barcelona</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F2F2F2;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .player-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: white;
+            font-size: 12px;
+            line-height: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="text-[#231F20]">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-[#0055A4] uppercase tracking-wide">Clash of Titans</h1>
+            <p class="text-xl md:text-2xl mt-2 font-semibold text-[#00A1E4]">Newcastle United vs. FC Barcelona</p>
+            <p class="text-md mt-4 max-w-3xl mx-auto text-gray-600">An in-depth statistical preview of the much-anticipated showdown. We dive into team form, tactical analysis, and key player matchups to project who is most likely to come out on top in this thrilling encounter.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Head-to-Head: The Tale of the Tape</h2>
+                <p class="text-gray-600 mb-6">A direct comparison of key performance indicators from the current season reveals a fascinating contrast in styles. Barcelona's dominance in possession meets Newcastle's clinical efficiency in front of goal, setting the stage for a classic tactical battle where control and counter-attack will be decisive.</p>
+                <div class="chart-container h-80 sm:h-96">
+                    <canvas id="headToHeadChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Newcastle: The Magpies' Ascent</h2>
+                <p class="text-gray-600 mb-6">Newcastle has demonstrated formidable form recently, characterized by a solid defense and explosive counter-attacks. Their performance over the last five matches shows a team high on confidence, securing crucial victories through tactical discipline and resilience.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="newcastleFormChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Barcelona: The Catalan Giants' Form</h2>
+                <p class="text-gray-600 mb-6">Barcelona continues to play their signature possession-based football, but have shown moments of vulnerability. Their recent form has been a mix of dominant displays and frustrating draws, highlighting their challenge in converting control into consistent victories against well-organized opposition.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="barcelonaFormChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Stylistic Profile: Attack vs. Defence</h2>
+                <p class="text-gray-600 mb-6">This radar chart visualizes the tactical DNA of both teams across key metrics. It highlights Barcelona's strengths in passing and possession against Newcastle's prowess in shooting accuracy and defensive solidity. The overlapping areas suggest where the game will be won and lost: the midfield battle and the efficiency in the final third.</p>
+                <div class="chart-container h-80 sm:h-96">
+                    <canvas id="styleRadarChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Key Player: Alexander Isak</h2>
+                 <p class="text-gray-600 mb-6">Newcastle's spearhead, Alexander Isak, has been in lethal form. His contribution, accounting for a significant portion of the team's goals and assists, makes him the primary threat. His ability to find space and finish clinically will be a major test for the Barcelona defense.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="isakChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Key Player: Lamine Yamal</h2>
+                <p class="text-gray-600 mb-6">The young prodigy Lamine Yamal is the creative engine for Barcelona. His flair, vision, and ability to create chances are central to the team's attacking play. He is responsible for a large share of the team's offensive output, and his performance will be critical in breaking down Newcastle's organized backline.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="yamalChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Probable Tactical Formations</h2>
+                <p class="text-gray-600 mb-6">Here's how the teams are expected to line up. Newcastle is likely to deploy a disciplined 4-4-2, focusing on defensive compactness and swift transitions. Barcelona will counter with their fluid 4-3-3, aiming to dominate the midfield and use their wingers to stretch the play and create overloads.</p>
+                <div class="flex flex-col md:flex-row justify-around items-center gap-8">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-center font-bold text-lg mb-2">Newcastle (4-4-2)</h3>
+                        <div class="bg-green-600 border-4 border-white h-96 p-4 rounded-lg relative flex flex-col justify-between">
+                            <div class="flex justify-center"><div class="player-marker bg-black" title="Goalkeeper">GK</div></div>
+                            <div class="flex justify-around"><div class="player-marker bg-black">DF</div><div class="player-marker bg-black">DF</div><div class="player-marker bg-black">DF</div><div class="player-marker bg-black">DF</div></div>
+                            <div class="flex justify-around"><div class="player-marker bg-black">MF</div><div class="player-marker bg-black">MF</div><div class="player-marker bg-black">MF</div><div class="player-marker bg-black">MF</div></div>
+                            <div class="flex justify-center gap-12"><div class="player-marker bg-black">FW</div><div class="player-marker bg-black">FW</div></div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-center font-bold text-lg mb-2">Barcelona (4-3-3)</h3>
+                        <div class="bg-green-600 border-4 border-white h-96 p-4 rounded-lg relative flex flex-col justify-between">
+                             <div class="flex justify-center"><div class="player-marker bg-[#0055A4]" title="Goalkeeper">GK</div></div>
+                             <div class="flex justify-around"><div class="player-marker bg-[#0055A4]">DF</div><div class="player-marker bg-[#0055A4]">DF</div><div class="player-marker bg-[#0055A4]">DF</div><div class="player-marker bg-[#0055A4]">DF</div></div>
+                             <div class="flex justify-around"><div class="player-marker bg-[#0055A4]">MF</div><div class="player-marker bg-[#0055A4]">MF</div><div class="player-marker bg-[#0055A4]">MF</div></div>
+                             <div class="flex justify-around"><div class="player-marker bg-[#0055A4]">FW</div><div class="player-marker bg-[#0055A4]">FW</div><div class="player-marker bg-[#0055A4]">FW</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#0055A4] mb-4">Betting Insights & Probabilities</h2>
+                <p class="text-gray-600 mb-6">Based on the offensive output of both teams and their recent defensive records, here's a look at the probabilities for popular betting markets. Both teams have shown they can score, making these markets particularly interesting for this fixture.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-700 mb-2">Both Teams to Score?</h3>
+                        <div class="chart-container h-64 sm:h-80">
+                            <canvas id="bttsChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-700 mb-2">Goals Over 2.5?</h3>
+                        <div class="chart-container h-64 sm:h-80">
+                            <canvas id="goalsOverChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-[#0055A4] text-white rounded-lg shadow-2xl p-8 text-center">
+                <h2 class="text-3xl font-black uppercase tracking-wider mb-4">The Verdict: Final Prediction</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">While Barcelona will likely dominate possession, Newcastle's recent defensive solidity and potent counter-attack give them a slight edge in this matchup. We predict a narrow victory for the home side in a tightly contested affair.</p>
+                <div class="text-7xl font-black text-white mb-2">2 - 1</div>
+                <div class="font-bold text-2xl text-[#74C7E5] mb-6">Newcastle Win</div>
+                <div class="w-full max-w-lg mx-auto bg-gray-200 rounded-full h-8 overflow-hidden flex">
+                    <div class="flex justify-center items-center h-full bg-[#231F20] text-white font-bold" style="width: 45%" title="Newcastle Win: 45%">45%</div>
+                    <div class="flex justify-center items-center h-full bg-[#74C7E5] text-[#231F20] font-bold" style="width: 25%" title="Draw: 25%">25%</div>
+                    <div class="flex justify-center items-center h-full bg-[#00A1E4] text-white font-bold" style="width: 30%" title="Barcelona Win: 30%">30%</div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 py-4 border-t border-gray-300">
+            <p class="text-gray-500 text-sm">This is a fictional match analysis. All data is for illustrative purposes only. This infographic presents a data-driven assumption and is for entertainment purposes only. Please use your own judgment and research before placing any bets.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const brilliantBluesPalette = {
+            primary: '#00A1E4',
+            secondary: '#0055A4',
+            accent: '#74C7E5',
+            light: '#F2F2F2',
+            dark: '#231F20'
+        };
+
+        const processLabels = (labels) => {
+            const maxLen = 16;
+            return labels.map(label => {
+                if (label.length <= maxLen) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const newLabel = [];
+                let line = '';
+                words.forEach(word => {
+                    if ((line + ' ' + word).length > maxLen) {
+                        newLabel.push(line);
+                        line = word;
+                    } else {
+                        line = (line ? line + ' ' : '') + word;
+                    }
+                });
+                newLabel.push(line);
+                return newLabel;
+            });
+        };
+        
+        const tooltipTitleCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('headToHeadChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(['Goals Scored per Match', 'Goals Conceded per Match', 'Possession %', 'Shots on Target per Match']),
+                datasets: [{
+                    label: 'Newcastle',
+                    data: [2.1, 0.8, 45, 6.2],
+                    backgroundColor: brilliantBluesPalette.dark,
+                    borderColor: brilliantBluesPalette.dark,
+                    borderWidth: 1
+                }, {
+                    label: 'Barcelona',
+                    data: [1.9, 1.1, 65, 5.8],
+                    backgroundColor: brilliantBluesPalette.primary,
+                    borderColor: brilliantBluesPalette.primary,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...tooltipTitleCallback,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    ...tooltipTitleCallback.plugins,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Seasonal Performance Metrics'
+                    }
+                }
+            }
+        });
+
+        const formChartOptions = (title) => ({
+            ...tooltipTitleCallback,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 3,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            if (value === 3) return 'Win';
+                            if (value === 1) return 'Draw';
+                            if (value === 0) return 'Loss';
+                            return '';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: title
+                }
+            }
+        });
+
+        new Chart(document.getElementById('newcastleFormChart'), {
+            type: 'line',
+            data: {
+                labels: ['Match -4', 'Match -3', 'Match -2', 'Match -1', 'Last Match'],
+                datasets: [{
+                    label: 'Form',
+                    data: [3, 1, 3, 0, 3],
+                    borderColor: brilliantBluesPalette.dark,
+                    backgroundColor: 'rgba(35, 31, 32, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: formChartOptions('Last 5 Matches (3=Win, 1=Draw, 0=Loss)')
+        });
+        
+        new Chart(document.getElementById('barcelonaFormChart'), {
+            type: 'line',
+            data: {
+                labels: ['Match -4', 'Match -3', 'Match -2', 'Match -1', 'Last Match'],
+                datasets: [{
+                    label: 'Form',
+                    data: [3, 1, 1, 3, 1],
+                    borderColor: brilliantBluesPalette.primary,
+                    backgroundColor: 'rgba(0, 161, 228, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: formChartOptions('Last 5 Matches (3=Win, 1=Draw, 0=Loss)')
+        });
+
+        new Chart(document.getElementById('styleRadarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Attacking', 'Defending', 'Passing', 'Shooting Accuracy', 'Pace', 'Possession'],
+                datasets: [{
+                    label: 'Newcastle',
+                    data: [8, 9, 6, 8, 9, 5],
+                    backgroundColor: 'rgba(35, 31, 32, 0.4)',
+                    borderColor: brilliantBluesPalette.dark,
+                    pointBackgroundColor: brilliantBluesPalette.dark
+                }, {
+                    label: 'Barcelona',
+                    data: [7, 6, 9, 7, 7, 9],
+                    backgroundColor: 'rgba(0, 161, 228, 0.4)',
+                    borderColor: brilliantBluesPalette.primary,
+                    pointBackgroundColor: brilliantBluesPalette.primary
+                }]
+            },
+            options: {
+                ...tooltipTitleCallback,
+                maintainAspectRatio: false,
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                }
+            }
+        });
+
+        const doughnutChartOptions = (title) => ({
+            ...tooltipTitleCallback,
+             maintainAspectRatio: false,
+             cutout: '70%',
+             plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: {
+                    position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: title
+                }
+             }
+        });
+
+        new Chart(document.getElementById('isakChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Isak's Contribution", "Rest of Team"],
+                datasets: [{
+                    data: [35, 65],
+                    backgroundColor: [brilliantBluesPalette.dark, brilliantBluesPalette.light],
+                    borderColor: [brilliantBluesPalette.dark, brilliantBluesPalette.light],
+                    hoverOffset: 4
+                }]
+            },
+            options: doughnutChartOptions(`Contribution to Team's Total Goals + Assists`)
+        });
+
+        new Chart(document.getElementById('yamalChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Yamal's Contribution", "Rest of Team"],
+                datasets: [{
+                    data: [32, 68],
+                    backgroundColor: [brilliantBluesPalette.primary, brilliantBluesPalette.light],
+                    borderColor: [brilliantBluesPalette.primary, brilliantBluesPalette.light],
+                    hoverOffset: 4
+                }]
+            },
+            options: doughnutChartOptions(`Contribution to Team's Total Goals + Assists`)
+        });
+
+        new Chart(document.getElementById('bttsChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Yes", "No"],
+                datasets: [{
+                    data: [65, 35],
+                    backgroundColor: [brilliantBluesPalette.primary, brilliantBluesPalette.light],
+                    borderColor: [brilliantBluesPalette.primary, brilliantBluesPalette.light],
+                    hoverOffset: 4
+                }]
+            },
+            options: doughnutChartOptions('Probability: 65% Yes')
+        });
+
+        new Chart(document.getElementById('goalsOverChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Yes", "No"],
+                datasets: [{
+                    data: [70, 30],
+                    backgroundColor: [brilliantBluesPalette.dark, brilliantBluesPalette.light],
+                    borderColor: [brilliantBluesPalette.dark, brilliantBluesPalette.light],
+                    hoverOffset: 4
+                }]
+            },
+            options: doughnutChartOptions('Probability: 70% Yes')
+        });
+    </script>
+</body>
+</html>
+
