@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Preview: Man City vs. Napoli</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .player-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: white;
+            font-size: 10px;
+            line-height: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="text-[#231F20]">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-[#6CABDD] uppercase tracking-wide">The Master's Return</h1>
+            <p class="text-xl md:text-2xl mt-2 font-semibold text-[#12A0D7]">Manchester City vs. S.S.C. Napoli</p>
+            <p class="text-md mt-4 max-w-3xl mx-auto text-gray-600">All eyes are on the Etihad as Manchester City legend Kevin De Bruyne returns, this time in the azure blue of Napoli. This Champions League opener pits two tactical titans, Pep Guardiola and Antonio Conte, against each other in a battle of champions.</p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Head-to-Head: Tale of the Tape</h2>
+                <p class="text-gray-600 mb-6">A statistical comparison of the two domestic champions reveals their contrasting philosophies. City's dominance in possession and passing is clear, while Napoli exhibit a more direct, high-efficiency attacking model under Conte, showing impressive defensive solidity.</p>
+                <div class="chart-container h-80 sm:h-96">
+                    <canvas id="headToHeadChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Man City: Formidable But Flawed</h2>
+                <p class="text-gray-600 mb-6">City's recent form has been strong but not flawless. A dominant derby win was preceded by a couple of surprising league defeats, suggesting that while their ceiling is incredibly high, they can be vulnerable to disciplined, fast-breaking teams.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="manCityFormChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Napoli: The Conte Revolution</h2>
+                <p class="text-gray-600 mb-6">Napoli are flying. Under Antonio Conte, they have a perfect record this season, blending defensive steel with ruthless attacking efficiency. They arrive at the Etihad as one of Europe's most in-form teams, full of confidence and tactical clarity.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="napoliFormChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Tactical DNA: Pep vs. Conte</h2>
+                <p class="text-gray-600 mb-6">This radar chart showcases the distinct tactical identities of the two sides. City excels in possession and creative passing, while Napoli thrives on counter-attacking threats and defensive solidity. The match will be decided by which team can impose its style more effectively.</p>
+                <div class="chart-container h-80 sm:h-96">
+                    <canvas id="styleRadarChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Key Man: Erling Haaland</h2>
+                 <p class="text-gray-600 mb-6">The Norwegian goal machine remains City's primary threat. His ability to convert chances is unparalleled, and his contribution to the team's total offensive output is immense. He will be the focal point of City's attack, aiming to breach Conte's organized defense.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="haalandChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">The Returning Hero: Kevin De Bruyne</h2>
+                <p class="text-gray-600 mb-6">The emotional heart of the match. De Bruyne, now Napoli's creative maestro, is responsible for a huge portion of their chance creation. His vision, passing range, and ability to dictate play from midfield make him the player City will fear most.</p>
+                <div class="chart-container h-64 sm:h-80">
+                    <canvas id="deBruyneChart"></canvas>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Probable Tactical Formations</h2>
+                <p class="text-gray-600 mb-6">A classic clash of formations is expected. Guardiola's City will likely set up in their fluid 4-3-3, aiming to control the midfield. Conte will counter with his trademark 3-5-2, designed to be defensively compact and devastating on the counter-attack through the wing-backs and two strikers.</p>
+                <div class="flex flex-col md:flex-row justify-around items-center gap-8">
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-center font-bold text-lg mb-2">Man City (4-3-3)</h3>
+                        <div class="bg-green-600 border-4 border-white h-96 p-4 rounded-lg relative flex flex-col justify-between">
+                            <div class="flex justify-center"><div class="player-marker bg-[#6CABDD]">GK</div></div>
+                            <div class="flex justify-around"><div class="player-marker bg-[#6CABDD]">RB</div><div class="player-marker bg-[#6CABDD]">CB</div><div class="player-marker bg-[#6CABDD]">CB</div><div class="player-marker bg-[#6CABDD]">LB</div></div>
+                            <div class="flex justify-around"><div class="player-marker bg-[#6CABDD]">CM</div><div class="player-marker bg-[#6CABDD]">CDM</div><div class="player-marker bg-[#6CABDD]">CM</div></div>
+                            <div class="flex justify-around"><div class="player-marker bg-[#6CABDD]">RW</div><div class="player-marker bg-[#6CABDD]">ST</div><div class="player-marker bg-[#6CABDD]">LW</div></div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-center font-bold text-lg mb-2">Napoli (3-5-2)</h3>
+                        <div class="bg-green-600 border-4 border-white h-96 p-4 rounded-lg relative flex flex-col justify-between">
+                             <div class="flex justify-center"><div class="player-marker bg-[#12A0D7]">GK</div></div>
+                             <div class="flex justify-around"><div class="player-marker bg-[#12A0D7]">CB</div><div class="player-marker bg-[#12A0D7]">CB</div><div class="player-marker bg-[#12A0D7]">CB</div></div>
+                             <div class="flex justify-around"><div class="player-marker bg-[#12A0D7]">RWB</div><div class="player-marker bg-[#12A0D7]">CM</div><div class="player-marker bg-[#12A0D7]">CM</div><div class="player-marker bg-[#12A0D7]">CM</div><div class="player-marker bg-[#12A0D7]">LWB</div></div>
+                             <div class="flex justify-center gap-12"><div class="player-marker bg-[#12A0D7]">ST</div><div class="player-marker bg-[#12A0D7]">ST</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#581845] mb-4">Betting Insights & Probabilities</h2>
+                <p class="text-gray-600 mb-6">With two elite attacks on display, goals are expected. City's home advantage is strong, but Napoli's form makes them a live threat. The data suggests that while a City win is most likely, markets like 'Both Teams to Score' hold significant value.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-700 mb-2">Both Teams to Score?</h3>
+                        <div class="chart-container h-64 sm:h-80">
+                            <canvas id="bttsChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-center text-gray-700 mb-2">Goals Over 2.5?</h3>
+                        <div class="chart-container h-64 sm:h-80">
+                            <canvas id="goalsOverChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-[#581845] text-white rounded-lg shadow-2xl p-8 text-center">
+                <h2 class="text-3xl font-black uppercase tracking-wider mb-4">The Verdict: Final Prediction</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">This will be a tactical chess match. City will dominate the ball, but Conte's Napoli are built to absorb pressure and strike decisively on the break. Given Napoli's flawless form and the emotional element of De Bruyne's return, we predict they'll snatch a hard-fought draw.</p>
+                <div class="text-7xl font-black text-white mb-2">2 - 2</div>
+                <div class="font-bold text-2xl text-[#FFC300] mb-6">Score Draw</div>
+                <div class="w-full max-w-lg mx-auto bg-gray-200 rounded-full h-8 overflow-hidden flex">
+                    <div class="flex justify-center items-center h-full bg-[#6CABDD] text-white font-bold" style="width: 40%" title="Man City Win: 40%">40%</div>
+                    <div class="flex justify-center items-center h-full bg-[#FFC300] text-[#231F20] font-bold" style="width: 35%" title="Draw: 35%">35%</div>
+                    <div class="flex justify-center items-center h-full bg-[#12A0D7] text-white font-bold" style="width: 25%" title="Napoli Win: 25%">25%</div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center mt-12 py-4 border-t border-gray-300">
+            <p class="text-gray-500 text-sm">This is a fictional match analysis based on researched data. All data is for illustrative purposes only. This infographic presents a data-driven assumption and is for entertainment purposes. Please use your own judgment and research before placing any bets.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const palette = {
+            cityBlue: '#6CABDD',
+            napoliBlue: '#12A0D7',
+            accentYellow: '#FFC300',
+            accentOrange: '#FF5733',
+            dark: '#581845',
+            light: '#f0f4f8'
+        };
+
+        const processLabels = (labels) => {
+            const maxLen = 16;
+            return labels.map(label => {
+                if (label.length <= maxLen) {
+                    return label;
+                }
+                const words = label.split(' ');
+                const newLabel = [];
+                let line = '';
+                words.forEach(word => {
+                    if ((line + ' ' + word).length > maxLen) {
+                        newLabel.push(line);
+                        line = word;
+                    } else {
+                        line = (line ? line + ' ' : '') + word;
+                    }
+                });
+                newLabel.push(line);
+                return newLabel;
+            });
+        };
+        
+        const tooltipTitleCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('headToHeadChart'), {
+            type: 'bar',
+            data: {
+                labels: processLabels(['Avg Goals Scored', 'Avg Goals Conceded', 'Possession %', 'Tackles per Match']),
+                datasets: [{
+                    label: 'Man City',
+                    data: [2.8, 0.9, 68, 14.1],
+                    backgroundColor: palette.cityBlue,
+                }, {
+                    label: 'Napoli',
+                    data: [2.4, 0.4, 55, 16.8],
+                    backgroundColor: palette.napoliBlue,
+                }]
+            },
+            options: {
+                ...tooltipTitleCallback,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true } },
+                plugins: { ...tooltipTitleCallback.plugins, legend: { position: 'top' }, title: { display: true, text: 'Seasonal Performance Metrics' } }
+            }
+        });
+
+        const formChartOptions = (title) => ({
+            ...tooltipTitleCallback,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 3,
+                    ticks: {
+                        stepSize: 1,
+                        callback: function(value) {
+                            if (value === 3) return 'Win';
+                            if (value === 1) return 'Draw';
+                            if (value === 0) return 'Loss';
+                            return '';
+                        }
+                    }
+                }
+            },
+            plugins: { ...tooltipTitleCallback.plugins, legend: { display: false }, title: { display: true, text: title } }
+        });
+
+        new Chart(document.getElementById('manCityFormChart'), {
+            type: 'line',
+            data: {
+                labels: ['Match -4', 'Match -3', 'Match -2', 'Match -1', 'Last Match'],
+                datasets: [{
+                    label: 'Form',
+                    data: [3, 0, 0, 3, 3], 
+                    borderColor: palette.cityBlue,
+                    backgroundColor: 'rgba(108, 171, 221, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: formChartOptions('Last 5 Matches (3=W, 1=D, 0=L)')
+        });
+        
+        new Chart(document.getElementById('napoliFormChart'), {
+            type: 'line',
+            data: {
+                labels: ['Match -4', 'Match -3', 'Match -2', 'Match -1', 'Last Match'],
+                datasets: [{
+                    label: 'Form',
+                    data: [3, 3, 3, 3, 3],
+                    borderColor: palette.napoliBlue,
+                    backgroundColor: 'rgba(18, 160, 215, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: formChartOptions('Last 5 Matches (3=W, 1=D, 0=L)')
+        });
+
+        new Chart(document.getElementById('styleRadarChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Possession Play', 'Counter-Attack', 'Defensive Solidity', 'High Press', 'Creativity', 'Finishing'],
+                datasets: [{
+                    label: 'Man City',
+                    data: [9, 6, 7, 8, 9, 8],
+                    backgroundColor: 'rgba(108, 171, 221, 0.4)',
+                    borderColor: palette.cityBlue,
+                    pointBackgroundColor: palette.cityBlue
+                }, {
+                    label: 'Napoli',
+                    data: [6, 9, 9, 7, 8, 8],
+                    backgroundColor: 'rgba(18, 160, 215, 0.4)',
+                    borderColor: palette.napoliBlue,
+                    pointBackgroundColor: palette.napoliBlue
+                }]
+            },
+            options: {
+                ...tooltipTitleCallback,
+                maintainAspectRatio: false,
+                elements: { line: { borderWidth: 3 } }
+            }
+        });
+
+        const doughnutChartOptions = (title) => ({
+            ...tooltipTitleCallback,
+             maintainAspectRatio: false,
+             cutout: '70%',
+             plugins: {
+                ...tooltipTitleCallback.plugins,
+                legend: { position: 'bottom' },
+                title: { display: true, text: title }
+             }
+        });
+
+        new Chart(document.getElementById('haalandChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Haaland's Contribution", "Rest of Team"],
+                datasets: [{ data: [42, 58], backgroundColor: [palette.cityBlue, palette.light], borderColor: [palette.cityBlue, palette.light] }]
+            },
+            options: doughnutChartOptions(`Contribution to Team Goals + Assists`)
+        });
+
+        new Chart(document.getElementById('deBruyneChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["De Bruyne's Contribution", "Rest of Team"],
+                datasets: [{ data: [38, 62], backgroundColor: [palette.napoliBlue, palette.light], borderColor: [palette.napoliBlue, palette.light] }]
+            },
+            options: doughnutChartOptions(`Contribution to Team Assists + Key Passes`)
+        });
+
+        new Chart(document.getElementById('bttsChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Yes", "No"],
+                datasets: [{ data: [75, 25], backgroundColor: [palette.accentYellow, palette.light], borderColor: [palette.accentYellow, palette.light] }]
+            },
+            options: doughnutChartOptions('Probability: 75% Yes')
+        });
+
+        new Chart(document.getElementById('goalsOverChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["Yes", "No"],
+                datasets: [{ data: [68, 32], backgroundColor: [palette.accentOrange, palette.light], borderColor: [palette.accentOrange, palette.light] }]
+            },
+            options: doughnutChartOptions('Probability: 68% Yes')
+        });
+    </script>
+</body>
+</html>
+
